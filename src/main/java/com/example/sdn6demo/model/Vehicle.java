@@ -1,12 +1,12 @@
 package com.example.sdn6demo.model;
 
 import lombok.*;
-import org.springframework.data.neo4j.core.schema.GeneratedValue;
-import org.springframework.data.neo4j.core.schema.Id;
-import org.springframework.data.neo4j.core.schema.Node;
-import org.springframework.data.neo4j.core.schema.Relationship;
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
 
-@Node
+@NodeEntity
 @Data
 @Builder
 @NoArgsConstructor
@@ -22,7 +22,7 @@ public class Vehicle {
     private String name;
 
     @ToString.Exclude
-    @Relationship(type = "HAS_VEHICLE", direction = Relationship.Direction.INCOMING)
+    @Relationship(type = "HAS_VEHICLE", direction = Relationship.INCOMING)
     private Fleet fleet;
 
 }

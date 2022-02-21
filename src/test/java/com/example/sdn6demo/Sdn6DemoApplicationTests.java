@@ -14,8 +14,10 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.Neo4jContainer;
 import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.shaded.com.google.common.collect.ImmutableList;
 import org.testcontainers.utility.DockerImageName;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -50,7 +52,7 @@ class Sdn6DemoApplicationTests {
 
     @DynamicPropertySource
     static void neo4jProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.neo4j.uri", container::getBoltUrl);
+        registry.add("spring.data.neo4j.uri", container::getBoltUrl);
     }
 
     @BeforeAll
@@ -65,7 +67,7 @@ class Sdn6DemoApplicationTests {
 
     @Test
     void derivedQuery() {
-        final List<Customer> loaded = customerRepository.findAll();
+        final List<Customer> loaded = ImmutableList.copyOf(customerRepository.findAll(2));
 
         assertFalse(loaded.isEmpty());
 

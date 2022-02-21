@@ -1,14 +1,13 @@
 package com.example.sdn6demo.repository;
 
 import com.example.sdn6demo.model.Customer;
+import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
-import org.springframework.data.neo4j.repository.query.Query;
-import org.springframework.data.neo4j.repository.support.CypherdslStatementExecutor;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface CustomerRepository extends Neo4jRepository<Customer, Long>, CypherdslStatementExecutor<Customer> {
+public interface CustomerRepository extends Neo4jRepository<Customer, Long> {
 
     @Query("MATCH (customer:`Customer`) WHERE customer.name IN $names" +
             " RETURN customer, [(customer)-[customer_has_fleet:`HAS_FLEET`]->(fleet:`Fleet`) | [" +
